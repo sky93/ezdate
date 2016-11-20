@@ -9,6 +9,9 @@
         }, options);
 
         return $('[' + settings['attrName'] + ']').each(function () {
+
+
+
             var object = $(this);
 
             var timeAttr = object.attr(settings.attrName);
@@ -18,8 +21,8 @@
                 var day = gDate.getDate();
                 var month = gDate.getMonth();
                 var year = gDate.getFullYear();
-                var hour = gDate.getHours();
-                var minute = gDate.getMinutes();
+                // var hour = gDate.getHours();
+                // var minute = gDate.getMinutes();
 
                 var converted = toJalaali(year, month + 1, day, false);
 
@@ -51,27 +54,6 @@
         return d2j(g2d(gy, gm, gd), stringDate)
     }
 
-    function toGregorian(jy, jm, jd) {
-        return d2g(j2d(jy, jm, jd))
-    }
-
-    function isValidJalaaliDate(jy, jm, jd) {
-        return jy >= -61 && jy <= 3177 &&
-            jm >= 1 && jm <= 12 &&
-            jd >= 1 && jd <= jalaaliMonthLength(jy, jm)
-    }
-
-    function isLeapJalaaliYear(jy) {
-        return jalCal(jy).leap === 0
-    }
-
-    function jalaaliMonthLength(jy, jm) {
-        if (jm <= 6) return 31;
-        if (jm <= 11) return 30;
-        if (isLeapJalaaliYear(jy)) return 30;
-        return 29
-    }
-
     function jalCal(jy) {
         var breaks = [-61, 9, 38, 199, 426, 686, 756, 818, 1111, 1181, 1210
             , 1635, 2060, 2097, 2192, 2262, 2324, 2394, 2456, 3178
@@ -89,7 +71,7 @@
             , i;
 
         if (jy < jp || jy >= breaks[bl - 1])
-            throw new Error('Invalid Jalaali year ' + jy);
+            throw new Error('error');
 
         for (i = 1; i < bl; i += 1) {
             jm = breaks[i];
@@ -118,12 +100,6 @@
             , march: march
         }
     }
-
-    function j2d(jy, jm, jd) {
-        var r = jalCal(jy);
-        return g2d(r.gy, 3, r.march) + (jm - 1) * 31 - div(jm, 7) * (jm - 7) + jd - 1
-    }
-
 
     function monthToName($month) {
         switch ($month) {
