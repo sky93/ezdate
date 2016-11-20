@@ -4,38 +4,49 @@
         var settings = $.extend({
             persianNumber: false,
             attrName: 'data-datetime',
+            dateFormat: 'D/M/YYYY',
             complete: function () {
             }
         }, options);
 
         return $('[' + settings['attrName'] + ']').each(function () {
 
-
-
             var object = $(this);
 
-            var timeAttr = object.attr(settings.attrName);
+            if (object.attr('data-exclude-datetime') == 'true') {
+                return true;
+            }
+
+            var timeAttr = object.attr(settings['attrName']);
             if (typeof timeAttr !== typeof undefined && timeAttr !== false) {
 
                 var gDate = new Date(object.attr(settings.attrName));
                 var day = gDate.getDate();
                 var month = gDate.getMonth();
                 var year = gDate.getFullYear();
-                // var hour = gDate.getHours();
-                // var minute = gDate.getMinutes();
-
+                var hour = gDate.getHours();
+                var minute = gDate.getMinutes();
                 var converted = toJalaali(year, month + 1, day, false);
 
-                converted = converted.jd + "/" + converted.jm + "/" + converted.jy;
+                var mm = converted.jm < 10 ? "0" + converted.jm : converted.jm;
+                var dd = converted.jd < 10 ? "0" + converted.jd : converted.jd;
+
+                var final_text = settings['dateFormat'];
+                final_text = final_text
+                    .replace(eval("/YYYY/g"), converted.jy)
+                    .replace(eval("/MMM/g"), monthToName(converted.jm))
+                    .replace(eval("/MM/g"), mm)
+                    .replace(eval("/M/g"), converted.jm)
+                    .replace(eval("/DD/g"), dd)
+                    .replace(eval("/D/g"), converted.jd);
 
                 if (settings['persianNumber']) {
-
                     var persian = Array('۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹');
                     for (i = 0; i < 10; i++) {
-                        converted = converted.replace(eval("/" + i + "/g"), persian[i]);
+                        final_text = final_text.replace(eval("/" + i + "/g"), persian[i]);
                     }
                 }
-                object.text(converted);
+                object.text(final_text);
             }
 
             if ($.isFunction(settings.complete)) {
@@ -48,7 +59,6 @@
         if (Object.prototype.toString.call(gy) === '[object Date]') {
             gd = gy.getDate();
             gm = gy.getMonth() + 1;
-
             gy = gy.getFullYear()
         }
         return d2j(g2d(gy, gm, gd), stringDate)

@@ -6,15 +6,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <div data-datetime="9/24/2016">9/24/2016</div>
-        <div data-datetime="3/25/2016">3/25/2016</div>
-        <div data-datetime="5/25/2015">5/25/2015</div>
+        <div data-datetime="10/18/1993">10/18/1993</div>
+        <div data-datetime="3/25/2016">It can be something else too</div>
+        <div data-exclude-datetime="true" data-datetime="5/25/2015">5/25/2015</div>
+        <div data-datetime="12/25/2012">5/25/2012</div>
 
         <script src="jquery-3.1.1.min.js"></script>
-        <script src="ezdate.jquey.min.js"></script>
+        <script src="ezdate.jquey.js"></script>
         <script>
           $.ezdate({
-            'persianNumber': true
+            'persianNumber': false
           });
         </script>
     </body>
