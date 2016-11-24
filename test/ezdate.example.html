@@ -6,17 +6,24 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <div data-datetime="10/18/1993">10/18/1993</div>
-        <div data-datetime="3/25/2016">It can be something else too</div>
-        <div data-exclude-datetime="true" data-datetime="5/25/2015">5/25/2015</div>
-        <div data-datetime="12/25/2012">5/25/2012</div>
+        <time class="ezdate" data-datetime="10/18/1993">10/18/1993</time>
+        <br>
+        <time class="ezdate" data-datetime="3/25/2016">3/25/2016</time>
+        <br>
+        <time class="ezdate" data-exclude-ezdate="true" data-datetime="5/25/2015">5/25/2015</time>
+        <br>
+        <time class="ezdate" data-datetime="12/25/2012">5/25/2012</time>
 
         <script src="jquery-3.1.1.min.js"></script>
         <script src="ezdate.jquey.min.js"></script>
         <script>
-          $.ezdate({
-            'persianNumber': false
-          });
+            $('time.ezdate').ezdate(
+                {
+                    persianNumber: false,      // Optional (default: false)
+                    attrName: 'data-datetime', // Optional (default: 'data-datetime')
+                    dateFormat: 'D/M/YYYY'     // Optional (default: 'D/M/YYYY')
+                }
+            );
         </script>
     </body>
 </html>

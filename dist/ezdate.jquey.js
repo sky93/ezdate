@@ -1,5 +1,5 @@
 (function ($) {
-    $.ezdate = function (options) {
+    $.fn.ezdate = function (options) {
 
         var settings = $.extend({
             persianNumber: false,
@@ -9,11 +9,10 @@
             }
         }, options);
 
-        return $('[' + settings['attrName'] + ']').each(function () {
-
+        return this.each(function () {
             var object = $(this);
 
-            if (object.attr('data-exclude-datetime') == 'true') {
+            if (object.attr('data-exclude-ezdate') == 'true') {
                 return true;
             }
 
