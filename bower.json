@@ -1,7 +1,7 @@
 {
   "name": "ezdate",
   "description": "The easiest and the best way to convert dates to Persian date format.",
-  "main": "ezdate.jquey.js",
+  "main": "jquey.ezdate.js",
   "authors": [
     "Sepehr Mohaghegh"
   ],
@@ -13,17 +13,15 @@
     "jquery-plugin",
     "Persian",
     "date",
-    "date",
     "javascript",
     "jquery",
-    "convert"
+    "convert",
+    "gregorian"
   ],
   "homepage": "https://github.com/sky93/ezdate",
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
-    "test",
-    "tests"
+    "bower_components"
   ]
 }
