@@ -25,27 +25,33 @@
                 var year = gDate.getFullYear();
                 var hour = gDate.getHours();
                 var minute = gDate.getMinutes();
-                var converted = toJalaali(year, month + 1, day, false);
+                try {
+                    var converted = toJalaali(year, month + 1, day, false);
 
-                var mm = converted.jm < 10 ? "0" + converted.jm : converted.jm;
-                var dd = converted.jd < 10 ? "0" + converted.jd : converted.jd;
+                    var mm = converted.jm < 10 ? "0" + converted.jm : converted.jm;
+                    var dd = converted.jd < 10 ? "0" + converted.jd : converted.jd;
 
-                var final_text = settings['dateFormat'];
-                final_text = final_text
-                    .replace(eval("/YYYY/g"), converted.jy)
-                    .replace(eval("/MMM/g"), monthToName(converted.jm))
-                    .replace(eval("/MM/g"), mm)
-                    .replace(eval("/M/g"), converted.jm)
-                    .replace(eval("/DD/g"), dd)
-                    .replace(eval("/D/g"), converted.jd);
+                    var final_text = settings['dateFormat'];
+                    final_text = final_text
+                        .replace(eval("/YYYY/g"), converted.jy)
+                        .replace(eval("/MMM/g"), monthToName(converted.jm))
+                        .replace(eval("/MM/g"), mm)
+                        .replace(eval("/M/g"), converted.jm)
+                        .replace(eval("/DD/g"), dd)
+                        .replace(eval("/D/g"), converted.jd);
 
-                if (settings['persianNumber']) {
-                    var persian = Array('۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹');
-                    for (i = 0; i < 10; i++) {
-                        final_text = final_text.replace(eval("/" + i + "/g"), persian[i]);
+                    if (settings['persianNumber']) {
+                        var persian = Array('۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹');
+                        for (i = 0; i < 10; i++) {
+                            final_text = final_text.replace(eval("/" + i + "/g"), persian[i]);
+                        }
                     }
+                    object.text(final_text);
                 }
-                object.text(final_text);
+                catch(err) {
+                    console.log(err.message + '(' + object.attr(settings.attrName) + ')');
+                }
+
             }
 
             if ($.isFunction(settings.complete)) {
@@ -80,7 +86,7 @@
             , i;
 
         if (jy < jp || jy >= breaks[bl - 1])
-            throw new Error('error');
+            throw new Error('Wrong date provided.');
 
         for (i = 1; i < bl; i += 1) {
             jm = breaks[i];
