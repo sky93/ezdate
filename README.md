@@ -43,5 +43,40 @@ into something like this:
 <time class="ezdate" datetime="10/18/1993">26/7/1372</time>
 ```
 
+##Options
+####`persianNumber` (_default: `false`_)
+
+```javascript
+$("time.ezdate").ezdate({
+    persianNumber: true
+});
+````
+Turns:
+```html
+<time class="ezdate" datetime="10/18/1993">October 18, 1993</time>
+```
+into
+```html
+<time class="ezdate" datetime="10/18/1993">۲۶/۷/۱۳۷۲</time>
+```
+
+---
+####`attrName` (_default: `'data-datetime'`_)
+Date source attribute. It's recommended to use `data-datetime` for ezdate as it's HTML5 friendly too.
+
+---
+####`dateFormat` (_default: `D/M/YYYY`_)
+You can use your custom date format to show.
+
+*Some examples:*
+
+| Value         | Meaning      |
+|---------------|--------------|
+| `D/M/YYYY`    | 26/7/1372    |
+| `D/MM/YYYY`   | 26/07/1372   |
+| `DD/MMM/YYYY` | 26/مهر/1372  |
+
+---
+ezdate also calls `complete` function when finished its job as callback.
 
 Enjoy using ezdate!
